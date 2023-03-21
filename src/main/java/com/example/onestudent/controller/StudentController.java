@@ -77,4 +77,23 @@ public class StudentController {
         }
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+
+        try {
+            Optional<Student> optionalStudent= studentRepository.findById(id);
+            if (optionalStudent.isPresent()){
+                Student student=optionalStudent.get();
+                studentRepository.delete(student);
+                return ResponseEntity.ok("id为"+id +"，姓名为"+student.getName()+"的学生删除成功");
+            }else {
+                throw new RuntimeException("找不到id为"+id +"的学生");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+
 }
