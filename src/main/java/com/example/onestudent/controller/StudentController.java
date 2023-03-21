@@ -54,31 +54,39 @@ public class StudentController {
     @ExceptionHandler(Exception.class)
     @PostMapping(value = "/save", consumes = "application/json")
     public ResponseEntity<?> saveStudent(@RequestBody Student student) {
+
         try {
-//            Student saveStudent = studentService.save(student);
-//            return ResponseEntity.ok(saveStudent);
-
-            if (student.getId() == null) {
-                Student saveStudent = studentRepository.save(student);
-                return ResponseEntity.ok(saveStudent);
-            } else {
-                Optional<Student> optionalStudent = studentRepository.findById(student.getId());
-                if (optionalStudent.isPresent()) {
-                    Student existingStudent = optionalStudent.get();
-                    existingStudent.setName(student.getName());
-                    existingStudent.setAge(student.getAge());
-                    Student student1 = studentRepository.save(existingStudent);
-                    return ResponseEntity.ok(student1);
-                } else {
-                    throw new RuntimeException("数据中找不到学生id为" + student.getId() + "的学生，因此添加信息无需学生填写id");
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-//            String errorMessage = "An error occurred while processing your request: " + e.getMessage();
+            Student saveStudent=studentService.saveStudent(student);
+            return ResponseEntity.ok(saveStudent);
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
+
+//        try {
+////            Student saveStudent = studentService.save(student);
+////            return ResponseEntity.ok(saveStudent);
+//
+//            if (student.getId() == null) {
+//                Student saveStudent = studentRepository.save(student);
+//                return ResponseEntity.ok(saveStudent);
+//            } else {
+//                Optional<Student> optionalStudent = studentRepository.findById(student.getId());
+//                if (optionalStudent.isPresent()) {
+//                    Student existingStudent = optionalStudent.get();
+//                    existingStudent.setName(student.getName());
+//                    existingStudent.setAge(student.getAge());
+//                    Student student1 = studentRepository.save(existingStudent);
+//                    return ResponseEntity.ok(student1);
+//                } else {
+//                    throw new RuntimeException("数据中找不到学生id为" + student.getId() + "的学生，因此添加信息无需学生填写id");
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+////            String errorMessage = "An error occurred while processing your request: " + e.getMessage();
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+//        }
     }
 
     @DeleteMapping("/delete/{id}")
