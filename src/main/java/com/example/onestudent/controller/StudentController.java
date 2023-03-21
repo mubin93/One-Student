@@ -23,22 +23,26 @@ public class StudentController {
 
     @GetMapping("list")
     public List<Student> getStudent() {
-        return studentRepository.findAll();
+//        return studentRepository.findAll();
+        return studentService.getAllStudents();
     }
 
     @GetMapping("/list/{id}")
     public Student getUserById(@PathVariable Long id) {
-        return studentRepository.findById(id).orElse(null);
+//        return studentRepository.findById(id).orElse(null);
+        return studentService.getStudentById(id);
     }
 
     @GetMapping("/list/name/{name}")
     public List<Student> getUserByName(@PathVariable String name) {
-        return studentRepository.findByName(name);
+//        return studentRepository.findByName(name);
+        return studentService.getStudentyName(name);
     }
 
     @GetMapping("/list/age/{age}")
     public List<Student> getUserByAge(@PathVariable Integer age) {
-        return studentRepository.findByAgeGreaterThan(age);
+//        return studentRepository.findByAgeGreaterThan(age);
+        return studentService.getStudentByAge(age);
     }
 
 //    @PostMapping("save")
