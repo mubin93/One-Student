@@ -55,6 +55,13 @@ public class StudentImpl implements StudentService {
 
     @Override
     public void deleteStudent(Long id) {
-        studentRepository.deleteById(id);
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        if (optionalStudent.isPresent()) {
+            Student student = optionalStudent.get();
+            studentRepository.delete(student);
+        }else {
+            throw new RuntimeException("找不到id为"+id +"的学生");
+        }
+//        studentRepository.deleteById(id);
     }
 }
