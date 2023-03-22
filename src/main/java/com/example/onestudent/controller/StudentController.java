@@ -21,6 +21,10 @@ public class StudentController {
     private StudentRepository studentRepository;
 
 
+    /**
+     * 获取所有学生信息
+     * @return 学生列表
+     */
     @GetMapping("list")
     public List<Student> getStudent() {
 //        return studentRepository.findAll();
