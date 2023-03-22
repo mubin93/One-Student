@@ -6,6 +6,7 @@ import com.example.onestudent.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,7 @@ public class StudentImpl implements StudentService {
     }
 
     @Override
-    public Student saveStudent(Student student) {
+    public Student saveStudent(@Valid Student student) {
         if (student.getId() == null) {
             Student saveStudent = studentRepository.save(student);
             return saveStudent;
@@ -43,8 +44,12 @@ public class StudentImpl implements StudentService {
             Optional<Student> optionalStudent = studentRepository.findById(student.getId());
             if (optionalStudent.isPresent()) {
                 Student existingStudent = optionalStudent.get();
+                existingStudent.setSid(student.getSid());
                 existingStudent.setName(student.getName());
+                existingStudent.setGender(student.getGender());
                 existingStudent.setAge(student.getAge());
+                existingStudent.setPhone(student.getPhone());
+                existingStudent.setAddress(student.getAddress());
                 Student updateStudent = studentRepository.save(existingStudent);
                 return updateStudent;
             } else {
