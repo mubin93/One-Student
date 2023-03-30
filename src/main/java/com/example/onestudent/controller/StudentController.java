@@ -50,6 +50,12 @@ public class StudentController {
         return studentService.getStudentByAge(age);
     }
 
+    @GetMapping("list/sid/{sid}")
+    public List<Student> getUserBySid(@PathVariable Long sid){
+        return studentService.getStudentBySid(sid);
+    }
+
+
 //    @PostMapping("save")
 //    public ResponseEntity<Integer> save(@Validated (StudentBean.Save.class) @RequestBody StudentBean studentBean){
 //        Integer id=studentService.save(studentBean);

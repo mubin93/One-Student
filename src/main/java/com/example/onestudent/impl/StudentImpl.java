@@ -36,6 +36,11 @@ public class StudentImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getStudentBySid(Long sid) {
+        return studentRepository.findBySid(sid);
+    }
+
+    @Override
     public Student saveStudent(@Valid Student student) {
         if (student.getId() == null) {
             Student saveStudent = studentRepository.save(student);

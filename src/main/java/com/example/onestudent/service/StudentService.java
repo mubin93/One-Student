@@ -21,6 +21,8 @@ public interface StudentService {
 
     List<Student> getStudentByAge(Integer age);
 
+    List<Student> getStudentBySid (Long sid);
+
     Student saveStudent(Student student);
 
     void deleteStudent(Long id);
